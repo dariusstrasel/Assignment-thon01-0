@@ -28,6 +28,9 @@ var dealership = {
             console.log("Failed:", e);
         }
     },
+    toggleAvailability: function(position) {
+        this.cars[position].carIsAvailable = !this.cars[position].carIsAvailable;
+    },
     getCarsQuantity: function() {
         return this.cars.length;
     },
@@ -52,6 +55,7 @@ var dealership = {
         return result;
     },
     getCarTypeAvailability: function() {
+        debugger;
         typeQuantities = {};
         console.log(Object.keys(this.cars));
         this.cars.forEach(function(car) {
@@ -65,8 +69,15 @@ var dealership = {
                 }
             });
         })
-
-        console.log(typeQuantities);
+    },
+    rentCar: function(carCategory) {
+        this.cars.forEach(function(car, position) {
+            if (car.carCategory === carCategory && car.carIsAvailable) {
+                console.log("Renting:", car);
+                this.toggleAvailability(position);
+            }
+        })
+        this.displayCars();
     }
 }
 
