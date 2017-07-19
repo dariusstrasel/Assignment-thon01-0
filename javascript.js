@@ -27,7 +27,8 @@ var dealership = {
     },
     updateCar: function(position, carKey, keyValue) {
         try {
-            this.cars[position].carKey = keyValue;
+            console.log("Changing", this.cars[position], carKey, "from", this.cars[position][carKey], "to", keyValue);
+            this.cars[position][carKey] = keyValue;
         } catch (e) {
             console.log("Failed to update car:", e);
         }
