@@ -69,7 +69,11 @@ var dealership = {
                 }
             });
         })
-        console.log(typeQuantities);
+        if (Object.keys(typeQuantities).length === 0) {
+            console.log("There are no cars available to rent.")
+        } else {
+            console.log(typeQuantities);
+        }
     },
     rentCar: function(carCategory) {
         this.cars.forEach(function(car, position) {
