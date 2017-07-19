@@ -55,9 +55,9 @@ var dealership = {
         return result;
     },
     getCarTypeAvailability: function() {
-        debugger;
+        //debugger;
         typeQuantities = {};
-        console.log(Object.keys(this.cars));
+        //console.log(Object.keys(this.cars));
         this.cars.forEach(function(car) {
             Object.keys(car).forEach(function(key) {
                 if (key === "carCategory") {
@@ -69,6 +69,7 @@ var dealership = {
                 }
             });
         })
+        console.log(typeQuantities);
     },
     rentCar: function(carCategory) {
         this.cars.forEach(function(car, position) {
