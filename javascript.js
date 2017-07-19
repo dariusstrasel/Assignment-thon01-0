@@ -51,4 +51,33 @@ var dealership = {
         }
         return result;
     },
+    getCarTypeAvailability: function() {
+        typeQuantities = {};
+        console.log(Object.keys(this.cars));
+        this.cars.forEach(function(car) {
+            Object.keys(car).forEach(function(key) {
+                if (key === "carCategory") {
+                    if (typeQuantities[car[key]]) {
+                        typeQuantities[car[key]] += 1;
+                    } else {
+                        typeQuantities[car[key]] = 1;
+                    }
+                }
+            });
+        })
+
+        console.log(typeQuantities);
+    }
 }
+
+// var handlers = {
+//     createCarNode: function() {
+//         var carLi = document.createElement("li")
+//         return carLi;
+//     },
+//     displayCars: function() {
+//         dealership.cars.forEach(function(car) {
+//             document.getElementById("")
+//         });
+//     }
+// }
