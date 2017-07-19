@@ -25,11 +25,9 @@ var dealership = {
             this.cars.slice(position, 1);
         }
     },
-    updateCar: function(position, carCategory, carRentalPrice, carIsAvailable) {
+    updateCar: function(position, carKey, keyValue) {
         try {
-            this.cars[position].carCategory = carCategory;
-            this.cars[position].carRentalPrice = carRentalPrice;
-            this.cars[position].carIsAvailable = carIsAvailable;
+            this.cars[position].carKey = keyValue;
         } catch (e) {
             console.log("Failed to update car:", e);
         }
