@@ -35,7 +35,7 @@ var dealership = {
         return this.cars.length;
     },
     isCarTypeAvailable: function(carCategory) {
-        debugger;
+        //debugger;
         var result = false;
         if (this.getCarsQuantity() === 0) {
             result = false;
