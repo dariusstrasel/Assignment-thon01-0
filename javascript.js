@@ -62,24 +62,24 @@ var dealership = {
     },
     getAllCarCategoryAvailabilty: function() {
         //debugger;
-        typeQuantities = {};
+        categoryQuantities = {};
         //console.log(Object.keys(this.cars));
         this.cars.forEach(function(car) {
             Object.keys(car).forEach(function(key) {
                 if (key === "carCategory") {
-                    if (typeQuantities[car[key]]) {
-                        typeQuantities[car[key]] += 1;
+                    if (categoryQuantities[car[key]]) {
+                        categoryQuantities[car[key]] += 1;
                     } else {
-                        typeQuantities[car[key]] = 1;
+                        categoryQuantities[car[key]] = 1;
                     }
                 }
             });
         })
-        if (Object.keys(typeQuantities).length === 0) {
+        if (Object.keys(categoryQuantities).length === 0) {
             console.log("There are no cars available to rent.")
         } else {
-            Object.keys(typeQuantities).forEach(function(categoryKey) {
-                console.log(categoryKey, ":", typeQuantities[categoryKey]);
+            Object.keys(categoryQuantities).forEach(function(categoryKey) {
+                console.log(categoryKey, ":", categoryQuantities[categoryKey]);
             })
         }
     },
