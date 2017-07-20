@@ -1,7 +1,7 @@
 var dealership = {
     // Car Inventory
     cars: [],
-    // Show all cars
+    categories: ['sedan', 'suv', 'sportscar'],
     displayCars: function() {
         if (this.getCarsQuantity() === 0) {
             console.log("There are no cars!");
@@ -121,6 +121,20 @@ var dealership = {
             }
         })
         this.displayCars();
+    },
+    generateCategory: function(){
+        return this.categories[Math.floor((Math.random() * 3) + 0)];
+    },
+    carFactory: function*() {
+        while(true)
+            yield {'carCategory': this.generateCategory(), 'carRentalPrice': Math.floor((Math.random() * 1000) + 10)}
+    },
+    populateInventory: function(quantity) {
+        var generator = this.carFactory();
+        for (var index = 0; index < quantity; index++){
+            var car = generator.next().value;
+            this.addCar(car.carCategory, car.carRentalPrice);
+        }
     }
 }
 
