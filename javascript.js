@@ -49,20 +49,7 @@ var dealership = {
     },
     // Amount of category available
     isCarCategoryAvailable: function(carCategory) {
-        var result = false;
-        if (this.getCarsQuantity() === 0) {
-            result = false;
-        } else {
-            var availableCars = this.cars.filter(function(car) {
-                if (car.carCategory === carCategory) {
-                    return car
-                }
-            });
-            if (availableCars) {
-                result = true;
-            }
-        }
-        return result;
+        return this.isCarKeyValuePresent('carCategory', carCategory);
     },
     isCarKeyValuePresent: function(key, keyVale) {
         var result = false;
@@ -122,16 +109,16 @@ var dealership = {
         })
         this.displayCars();
     },
-    generateCategory: function(){
+    generateCategory: function() {
         return this.categories[Math.floor((Math.random() * 3) + 0)];
     },
     carFactory: function*() {
-        while(true)
-            yield {'carCategory': this.generateCategory(), 'carRentalPrice': Math.floor((Math.random() * 1000) + 10)}
+        while (true)
+            yield { 'carCategory': this.generateCategory(), 'carRentalPrice': Math.floor((Math.random() * 1000) + 10) }
     },
     populateInventory: function(quantity) {
         var generator = this.carFactory();
-        for (var index = 0; index < quantity; index++){
+        for (var index = 0; index < quantity; index++) {
             var car = generator.next().value;
             this.addCar(car.carCategory, car.carRentalPrice);
         }
