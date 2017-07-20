@@ -1,7 +1,9 @@
 var dealership = {
+    // Car Inventory
     cars: [],
+    // Show all cars
     displayCars: function() {
-        if (this.cars.length === 0) {
+        if (this.getCarsQuantity() === 0) {
             console.log("There are no cars!");
         } else {
             this.cars.forEach(function(car) {
@@ -9,6 +11,7 @@ var dealership = {
             })
         }
     },
+    // Add car
     addCar: function(carCategory, carRentalPrice) {
         //debugger;
         this.cars.push({
@@ -18,61 +21,86 @@ var dealership = {
         });
         this.displayCars();
     },
+    // Remove car
     removeCar: function(position) {
-        if (this.cars.length === 0) {
+        if (this.getCarsQuantity() === 0) {
             console.log("There are no cars to remove.")
         } else {
             this.cars.slice(position, 1);
         }
     },
+    // Change car
     updateCar: function(position, carKey, keyValue) {
         try {
             console.log("Changing", this.cars[position], carKey, "from", this.cars[position][carKey], "to", keyValue);
             this.cars[position][carKey] = keyValue;
         } catch (e) {
+            console.log(e.name);
             console.log("Failed to update car:", e);
         }
     },
+    // Flip availability (rent) status
     toggleAvailability: function(position) {
         this.cars[position].carIsAvailable = !this.cars[position].carIsAvailable;
     },
+    // Show the total number of cars
     getCarsQuantity: function() {
         return this.cars.length;
     },
+    // Amount of category available
     isCarCategoryAvailable: function(carCategory) {
-        //debugger;
         var result = false;
         if (this.getCarsQuantity() === 0) {
             result = false;
         } else {
-            var typeQuantity = 0;
-            this.cars.forEach(function(car) {
+            var availableCars = this.cars.filter(function(car) {
                 if (car.carCategory === carCategory) {
-                    typeQuantity++
+                    return car
                 }
             });
-            if (typeQuantity > 0) {
+            if (availableCars) {
                 result = true;
-            } else {
-                result = false;
             }
         }
         return result;
     },
+    isCarKeyValuePresent: function(key, keyVale) {
+        var result = false;
+        if (this.getCarsQuantity() === 0) {
+            result = false;
+        } else {
+            var matchingCars = this.cars.filter(function(car) {
+                if (car[key] === keyVale) {
+                    return car
+                }
+            });
+            if (matchingCars.length !== 0) {
+                result = true;
+            }
+        }
+        return result;
+    },
+    // Show available cars for category
     getAllCarCategoryAvailabilty: function() {
         //debugger;
+        if (this.getCarsQuantity() === 0) {
+            console.log("There are no cars stocked in inventory.")
+            return
+        }
         categoryQuantities = {};
         //console.log(Object.keys(this.cars));
         this.cars.forEach(function(car) {
-            Object.keys(car).forEach(function(key) {
-                if (key === "carCategory") {
-                    if (categoryQuantities[car[key]]) {
-                        categoryQuantities[car[key]] += 1;
-                    } else {
-                        categoryQuantities[car[key]] = 1;
+            if (car.carIsAvailable) {
+                Object.keys(car).forEach(function(key) {
+                    if (key === "carCategory") {
+                        if (categoryQuantities[car[key]]) {
+                            categoryQuantities[car[key]] += 1;
+                        } else {
+                            categoryQuantities[car[key]] = 1;
+                        }
                     }
-                }
-            });
+                });
+            }
         })
         if (Object.keys(categoryQuantities).length === 0) {
             console.log("There are no cars available to rent.")
@@ -82,6 +110,7 @@ var dealership = {
             })
         }
     },
+    // Rent a car in inventory
     rentCar: function(carCategory) {
         this.cars.forEach(function(car, position) {
             if (car.carCategory === carCategory && car.carIsAvailable) {
